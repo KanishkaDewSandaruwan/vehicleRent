@@ -1,7 +1,8 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">AdminKit</span>
+            <span class="align-middle">Roshan's Geuest House</span>
+            <span class="align-middle">Vehicle Rent Service</span>
         </a>
 
         <ul class="sidebar-nav">
@@ -49,6 +50,11 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="gallery.php">
                     <i class="align-middle" data-feather="image"></i> <span class="align-middle">Gallery</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="settings.php">
+                    <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Settings</span>
                 </a>
             </li>
 
