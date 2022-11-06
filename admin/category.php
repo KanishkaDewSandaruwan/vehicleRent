@@ -34,7 +34,6 @@
                                         <tr>
                                             <th>Cat ID</th>
                                             <th>Category Name</th>
-                                            <th>Sub Category</th>
                                             <th>Image</th>
                                             <th></th>
                                             <th></th>
@@ -45,7 +44,6 @@
                                         <tr>
                                             <th>Cat ID</th>
                                             <th>Category Name</th>
-                                            <th>Sub Category</th>
                                             <th>Image</th>
                                             <th></th>
                                             <th></th>
@@ -92,11 +90,13 @@
                                                 <img width="200px" src='<?php echo $img_src; ?>'>
 
                                             </td>
+                                            <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 'admin'): ?>
       
                                             <td><button type="button"
                                                     onclick="deleteDataCategory(<?php echo $row['cat_id']; ?>,'category', 'cat_id')"
                                                     class="btn btn-darkblue"> <i class="fa-solid fa-trash"></i>
                                                 </button></td>
+                                                <?php endif; ?>
                                         </tr>
 
                                         <?php } ?>

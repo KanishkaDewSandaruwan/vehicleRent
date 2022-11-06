@@ -27,6 +27,60 @@ addContactMessage = (form) => {
 
 }
 
+updatedDate = (form) => {
+
+    var formData = new FormData(form);
+
+    if (formData.get('change_date').trim() != "") {
+        var end_date = new Date(formData.get('end_date'));
+        var changed_date = new Date(formData.get('change_date'));
+
+        var Difference_In_Time = changed_date.getTime() - end_date.getTime();
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+        if (Difference_In_Days > 0) {
+
+            var sub_total = Difference_In_Days * formData.get('vehicle_price');
+            var new_total = parseInt(sub_total) + parseInt(formData.get('total'));
+
+            document.getElementById('extended_total').value = new_total;
+            document.getElementById('changed_date').value = formData.get('change_date');
+            document.getElementById('num_ofDays').value = Difference_In_Days;
+            document.getElementById('current_total').value = formData.get('total');
+        } else { errorMessage("Please Select Future Date"); }
+
+    } else { errorMessage("Please Select the Date"); }
+}
+
+requestExtend = (form) => {
+    var formData = new FormData(form);
+
+    if (formData.get('changed_date').trim() != '') {
+        if (formData.get('request_message').trim() != '') {
+            if (formData.get('extended_total').trim() != '') {
+
+                $.ajax({
+                    method: "POST",
+                    url: HOME_API_PATH + "addExtend",
+                    data: formData,
+                    success: function ($data) {
+                        console.log($data);
+                        successToastRedirect("rent_list.php");
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    error: function (error) {
+                        console.log(`Error ${error}`);
+                    }
+                });
+
+            } else { errorMessage("Please Check Date befoure Submit"); }
+        } else { errorMessage("Please Enter Message"); }
+    } else { errorMessage("Please Enter Date"); }
+
+}
+
 addBooking = (form) => {
     var formData = new FormData(form);
 
@@ -492,6 +546,107 @@ deleteDataFromHome = (id, table, id_fild) => {
     })
 }
 
+
+bookRent = (form) => {
+
+    var formData = new FormData(form);
+
+    if (document.getElementById('p_name').value.trim() != "" && document.getElementById('exdate').value.trim() != "" && document.getElementById('cvv').value.trim() != "") {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't Rent This Vehicle!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Make Booking it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                var data = {
+                    vehicle_id: formData.get('vehicle_id'),
+                    start_date: formData.get('start_date'),
+                    end_date: formData.get('end_date'),
+                    customer_id: formData.get('customer_id'),
+                    total: formData.get('total'),
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: HOME_API_PATH + "addBookingVehicle",
+                    data: data,
+                    success: function ($data) {
+                        console.log($data);
+                        successToastRedirect("rent_confirmation.php?rent_id=" + $data);
+                    },
+                    error: function (error) {
+                        console.log(`Error ${error}`);
+                    }
+                });
+                Swal.fire(
+                    'Saved!',
+                    'Your Booking has been Saved.',
+                    'success'
+                )
+
+            }
+        })
+    } else {
+        errorMessage("Please Enter Card Details");
+    }
+}
+
+
+bookpackage = (form) => {
+
+    var formData = new FormData(form);
+
+    if (document.getElementById('p_name').value.trim() != "" && document.getElementById('exdate').value.trim() != "" && document.getElementById('cvv').value.trim() != "") {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't Book This Package!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Make Booking it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                var data = {
+                    customer_id: formData.get('customer_id'),
+                    package_id: formData.get('package_id'),
+                    total: formData.get('total'),
+                    traval_start_date: formData.get('traval_start_date'),
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: HOME_API_PATH + "bookpackage",
+                    data: data,
+                    success: function ($data) {
+                        console.log($data);
+                        successToastRedirect("rent_confirmation.php?order_id=" + $data);
+                    },
+                    error: function (error) {
+                        console.log(`Error ${error}`);
+                    }
+                });
+                Swal.fire(
+                    'Saved!',
+                    'Your Booking has been Saved.',
+                    'success'
+                )
+
+            }
+        })
+    } else {
+        errorMessage("Please Enter Card Details");
+    }
+}
+
 callUpdateRequestFromHome = (data) => {
 
     $.ajax({
@@ -512,6 +667,13 @@ callUpdateRequestFromHome = (data) => {
 search = (form) => {
     console.log("clicked");
     var formData = new FormData(form);
-    var keyword = formData.get('key');
-    window.location.href = "search.php?key=" + keyword;
+    var start_date = formData.get('start_date');
+    var end_date = formData.get('end_date');
+    var cat_id = formData.get('cat_id');
+    if (formData.get('start_date').trim() != "" && formData.get('end_date').trim() != "" && formData.get('cat_id').trim() != "") {
+
+        window.location.href = "cars.php?start_date=" + start_date + "&end_date=" + end_date + "&cat_id=" + cat_id;
+    } else {
+        window.location.href = "index.php";
+    }
 }

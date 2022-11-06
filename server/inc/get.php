@@ -12,6 +12,14 @@ function getAllpackage()
     return mysqli_query($con, $viewcat);
 }
 
+function getAllAvailablepackage()
+{
+    include 'connection.php';
+
+    $viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND package_status = 1 ORDER BY date_updated DESC ";
+    return mysqli_query($con, $viewcat);
+}
+
 function getAllvehicle()
 {
     include 'connection.php';
@@ -19,15 +27,6 @@ function getAllvehicle()
     $viewcat = "SELECT * FROM vehicle WHERE is_deleted = 0 ";
     return mysqli_query($con, $viewcat);
 }
-
-function getAllProductpackage()
-{
-    include 'connection.php';
-
-    $viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND product_active = 1 ORDER BY date_updated DESC";
-    return mysqli_query($con, $viewcat);
-}
-
 
 function checkPackageByName($package_name)
 {
@@ -42,7 +41,7 @@ function getpackageByID($package_id)
 {
 	include 'connection.php';
 
-	$viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND package_id = '$package_id' ";
+	$viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND package_id = '$package_id' AND package_status = 1 ";
 	return mysqli_query($con, $viewcat);
 }
 
@@ -54,6 +53,15 @@ function getvehicleByID($vehicle_id)
 	return mysqli_query($con, $viewcat);
 }
 
+
+function getvehicleAvailable($cat_id)
+{
+	include 'connection.php';
+
+	$viewcat = "SELECT * FROM vehicle WHERE is_deleted = 0 AND cat_id = '$cat_id' AND vehicle_status = 1";
+	return mysqli_query($con, $viewcat);
+}
+
 function getVehicleByName($vehicle_id)
 {
 	include 'connection.php';
@@ -61,6 +69,99 @@ function getVehicleByName($vehicle_id)
 	$vehicle = "SELECT * FROM vehicle WHERE is_deleted = 0 AND vehicle_id = '$vehicle_id' ";
 	$result = mysqli_query($con, $vehicle);
 	return mysqli_num_rows($result);
+}
+
+function getRentByID($rent_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM vehicle_rent WHERE is_deleted = 0 AND rent_id = '$rent_id' ";
+	return mysqli_query($con, $rent);
+
+}
+
+function getExtendByID($rent_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM extend WHERE is_deleted = 0 AND rent_id = '$rent_id' ";
+	return mysqli_query($con, $rent);
+
+}
+
+function getRentByIDWithVehicle($rent_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM vehicle_rent join vehicle on vehicle.vehicle_id = vehicle_rent.vehicle_id WHERE vehicle_rent.is_deleted = 0 AND vehicle_rent.rent_id = '$rent_id' ";
+	return mysqli_query($con, $rent);
+
+}
+
+
+function getOrderByID($order_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM package_orders WHERE is_deleted = 0 AND order_id = '$order_id' ";
+	return mysqli_query($con, $rent);
+
+}
+
+function getAllOrderbyCustomer($customer_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM package_orders WHERE is_deleted = 0 AND customer_id = '$customer_id' ";
+	return mysqli_query($con, $rent);
+
+}
+
+function getAllOrders()
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM package_orders join customer on  customer.customer_id = package_orders.customer_id WHERE package_orders.is_deleted = 0";
+	return mysqli_query($con, $rent);
+
+}
+
+
+function getAllRents()
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM vehicle_rent join customer on  customer.customer_id = vehicle_rent.customer_id WHERE vehicle_rent.is_deleted = 0";
+	return mysqli_query($con, $rent);
+
+}
+
+function getAllRentsByIDAdmin($rent_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM vehicle_rent WHERE is_deleted = 0 AND rent_id = '$rent_id' ";
+	return mysqli_query($con, $rent);
+
+}
+
+
+function getAllRentsByID($customer_id)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM vehicle_rent join customer on  customer.customer_id = vehicle_rent.customer_id WHERE vehicle_rent.is_deleted = 0 AND vehicle_rent.customer_id = '$customer_id'";
+	return mysqli_query($con, $rent);
+
+}
+
+function getRentByDateAvailable($vehicle_id, $start_date, $end_date)
+{
+	include 'connection.php';
+
+	$rent = "SELECT * FROM vehicle_rent WHERE is_deleted = 0 AND NOT(end_date < '$start_date' OR start_date > '$end_date') AND vehicle_id = '$vehicle_id' ";
+	return mysqli_query($con, $rent);
+
 }
 
 function getAllpackageByIDHome($data)
@@ -157,18 +258,46 @@ function getLoginAdmin($data)
     $email = $data['email'];
     $password = $data['password'];
 
-    $loginAdmin = "SELECT * FROM customer WHERE email = '$email' AND password ='$password'";
-    $count_loginAdmin = mysqli_query($con, $loginAdmin);
+    $loginAdmin = "SELECT * FROM staff WHERE email = '$email' AND password ='$password'";
+    $countloginAdmin = mysqli_query($con, $loginAdmin);
+    $counts_loginAdmin = mysqli_num_rows($countloginAdmin);
 
-    if ($email == 'admin') {
-        $_SESSION['admin'] = $email;
-    }
-    else {
+    $loginCustomer = "SELECT * FROM customer WHERE email = '$email' AND password ='$password'";
+    $count_loginCustomer = mysqli_query($con, $loginCustomer);
+    $counts_loginCustomer = mysqli_num_rows($count_loginCustomer);
+
+    $value = "";
+
+    if($counts_loginAdmin > 0){   
+
+        $value = 'admin';
+
+        $res = checkStaff($email);
+        $row = mysqli_fetch_assoc($res);
+        $_SESSION['admin'] = $row['email'];
+        
+
+     
+    }else if($counts_loginCustomer > 0){
+
+        $value = 'customer';
+
         $res = checkCustomerByEmail($email);
         $row = mysqli_fetch_assoc($res);
         $_SESSION['customer'] = $row['customer_id'];
+        
     }
-    return mysqli_num_rows($count_loginAdmin);
+     echo $value;
+    
+}
+
+
+function checkStaff($email)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM staff WHERE email='$email' AND is_deleted='0'";
+    return mysqli_query($con, $q1);
 }
 
 function checkCustomerByEmail($email)
@@ -223,6 +352,15 @@ function getAllCategory()
     include 'connection.php';
 
     $q1 = "SELECT * FROM category WHERE is_deleted = 0";
+    return mysqli_query($con, $q1);
+
+}
+
+function getAllCategoryByID($cat_id)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM category WHERE is_deleted = 0 AND cat_id = '$cat_id'";
     return mysqli_query($con, $q1);
 
 }
@@ -301,11 +439,13 @@ function dataCountWhere($table, $where){
     echo $count;
 }
 
-function dataforCount($table){
+function dataforCount($table , $fields){
 	include 'connection.php';
 
-	$counts = "SELECT sum(booking_price) as sum FROM $table";
-    return mysqli_query($con,$counts);
+	$counts = "SELECT sum($fields) as sum FROM $table";
+    $getdata = mysqli_query($con,$counts);
+    $row = mysqli_fetch_assoc($getdata);
+    echo $row['sum'];
 }
 
 function dataforCountMonth($table){
@@ -351,30 +491,16 @@ function checkPasswordByName($data){
 	echo $count;
 }
 
-
-
-function getAllOrdersByCustomer($customer_id){
+function checkStaffPasswordByEmail($data){
 	include 'connection.php';
+	$email = $data['email'];
+	$password = $data['password'];
 
-	$viewcat = "SELECT * FROM booking WHERE customer_id = '$customer_id' AND is_deleted = '0' ORDER BY date_updated DESC";
-	return mysqli_query($con,$viewcat);
+	$viewcat = "SELECT * FROM staff WHERE password = '$password' AND email = '$email' ";
+	$result = mysqli_query($con,$viewcat);
+	$count = mysqli_num_rows($result);
+	echo $count;
 }
-
-function getAllOrders(){
-	include 'connection.php';
-
-	$viewcat = "SELECT * FROM booking join customer on customer.customer_id = booking.customer_id  WHERE booking.is_deleted = '0' ORDER BY date_updated DESC";
-	return mysqli_query($con,$viewcat);
-}
-
-function getAllOrdersPending(){
-	include 'connection.php';
-
-	$viewcat = "SELECT * FROM booking join customer on customer.customer_id = booking.customer_id  WHERE booking.is_deleted = '0' AND booking.status = '0' ORDER BY date_updated DESC";
-	return mysqli_query($con,$viewcat);
-}
-
-
 
 
 ?>

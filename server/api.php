@@ -122,10 +122,18 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'login') {
 	echo getLoginAdmin($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkPasswordByEmail') {
     checkPasswordByName($_POST);
+}else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkStaffPasswordByEmail') {
+    checkStaffPasswordByEmail($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkoutOrder') {
     checkoutOrder($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addcontact') {
 	addMessage($_POST);
+}else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addExtend') {
+	addExtend($_POST);
+}else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addBookingVehicle') {
+	addBookingVehicle($_POST);
+}else if (isset($_GET['function_code']) && $_GET['function_code'] == 'bookpackage') {
+	bookpackage($_POST);
 }
 else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addCustomer') {
     createCustomer($_POST);

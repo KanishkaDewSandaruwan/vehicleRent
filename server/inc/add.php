@@ -49,6 +49,39 @@ function addVehicle($data, $img)
 	}
 }
 
+function addBookingVehicle($data)
+{
+	include 'connection.php';
+
+	$vehicle_id = $data['vehicle_id'];
+	$start_date = $data['start_date'];
+	$end_date = $data['end_date'];
+	$customer_id = $data['customer_id'];
+	$total = $data['total'];
+
+	$sql = "INSERT INTO vehicle_rent(vehicle_id, customer_id, start_date, end_date, total, rent_status, payment, is_deleted ,date_updated, driver_id, guid_id, extend) 
+	VALUES('$vehicle_id', '$customer_id', '$start_date', '$end_date', '$total', 0 , 0 , 0 , now(), 0 , 0 , 0)";
+	mysqli_query($con, $sql);
+	echo json_encode(mysqli_insert_id($con));
+
+}
+
+function bookpackage($data)
+{
+	include 'connection.php';
+
+	$package_id = $data['package_id'];
+	$customer_id = $data['customer_id'];
+	$total = $data['total'];
+	$traval_start_date = $data['traval_start_date'];
+
+	$sql = "INSERT INTO package_orders(customer_id, total, payment, date_updated, is_deleted, order_status, traval_start_date, package_id, driver_id, guid_id) 
+	VALUES('$customer_id', '$total', 0 , now(), 0 , 0, '$traval_start_date' , '$package_id', 0, 0)";
+	mysqli_query($con, $sql);
+	echo json_encode(mysqli_insert_id($con));
+
+}
+
 function addCategory($data, $img)
 {
     include 'connection.php';
@@ -107,6 +140,21 @@ function addMessage($data)
 
 
 	$sql = "INSERT INTO contact(name, email, subject, message, date_updated) VALUES('$name', '$email', '$subject', '$message', now())";
+	return mysqli_query($con, $sql);
+}
+
+function addExtend($data)
+{
+    include 'connection.php';
+
+    $rent_id = $data['rent_id'];
+    $changed_date = $data['changed_date'];
+    $request_message = $data['request_message'];
+    $extended_total = $data['extended_total'];
+
+
+	$sql = "INSERT INTO extend(rent_id, changed_date, extended_total, date_updated, is_deleted, request_message, extend_status) 
+	VALUES('$rent_id', '$changed_date', '$extended_total', now(), 0 , '$request_message', 0)";
 	return mysqli_query($con, $sql);
 }
 

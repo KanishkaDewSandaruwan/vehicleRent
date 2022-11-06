@@ -61,13 +61,11 @@ login = (myForm) => {
         data: formData,
         success: function ($data) {
             console.log($data);
-            if ($data > 0) {
-                if (formData.get("email") == 'admin') {
-                    window.location.href = 'index.php';
-                } else {
-                    window.location.href = '../index.php';
-                }
-            } else {
+            if ($data == 'admin') {
+                window.location.href = 'index.php';
+            } else if($data == 'customer') {
+                window.location.href = '../index.php';
+            }else{
                 iziToast.error({
                     timeout: 2000,
                     title: 'Error',
@@ -168,7 +166,7 @@ changePasswordAdmin = (form) => {
                             field: 'password',
                             value: formData.get('new_password'),
                             id_fild: 'email',
-                            table: 'customer',
+                            table: 'staff',
                         }
 
                         $.ajax({
@@ -228,7 +226,7 @@ checkPasswordAdmin = (password, email) => {
     var values;
     $.ajax({
         method: "POST",
-        url: API_PATH + "checkPasswordByEmail",
+        url: API_PATH + "checkStaffPasswordByEmail",
         data: data,
         async: false,
         success: function (data) {

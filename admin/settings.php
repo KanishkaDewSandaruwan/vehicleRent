@@ -81,7 +81,7 @@
                                     <form class="mt-3" method="POST" enctype="multipart/form-data">
                                         <div class="mb-3">
                                             <input type="hidden" name="field" id="field" value="header_rotate_image">
-                                            <label for="formFile" class="form-label">Sub header Image file</label>
+                                            <label for="formFile" class="form-label">Background Image file</label>
                                             <input class="form-control" onchange="uploadSettingImage(this.form);"
                                                 name="file" type="file" id="formFile">
                                         </div>
@@ -113,18 +113,7 @@
                                             value="<?php echo $res['about_title']; ?>" class="form-control"
                                             id="about_title" placeholder="About Title" required>
                                     </div>
-                                    <div class="col-md-12 mt-3">
-                                        <label for="validationCustom01" class="form-label">Experience</label>
-                                        <input type="text" onchange='settingsUpdate(this, "about_experience")'
-                                            value="<?php echo $res['about_experience']; ?>" class="form-control"
-                                            id="about_experience" placeholder="Experience" required>
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        <label for="validationCustom01" class="form-label">Opening Hour</label>
-                                        <input type="text" onchange='settingsUpdate(this, "opening")'
-                                            value="<?php echo $res['opening']; ?>" class="form-control" id="opening"
-                                            placeholder="Opening Hour" required>
-                                    </div>
+
                                     <div class="col-md-12 mt-3">
                                         <label for="product_desc" class="form-label">About Description</label>
                                         <textarea onchange='settingsUpdate(this, "about_desc")' class="form-control"
@@ -201,38 +190,7 @@
                                         <?php } ?>
 
 
-                                        <h6>Privacy and Terms Settings</h6>
-                                        <hr>
-                                        <?php
-                                            $setting = getAllSettings();
-                                            if($res = mysqli_fetch_assoc($setting)){ ?>
-
-
-
-
-                                        <div class="col-md-12 mt-3">
-
-                                            <div class="form-group">
-                                                <label for="privacy_policy">Privacy Policy</label>
-                                                </br>
-                                                <textarea id="article_content" cols="100" rows="10"
-                                                    onchange="settingsUpdate(this, 'privacy_policy');"
-                                                    name="privacy_policy"><?php echo $res['privacy_policy']; ?></textarea>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="terms_and_condition">Terms & Condition</label>
-                                            </br>
-                                            <textarea id="terms_and_condition" cols="100" rows="10"
-                                                onchange='settingsUpdate(this, "terms_and_condition")'
-                                                style="color: black;"
-                                                name="terms_and_condition"><?php echo $res['terms_and_condition']; ?></textarea>
-                                        </div>
-                                    </div>
-
-                                    <?php } ?>
+            
 
                                 </div>
                             </div>

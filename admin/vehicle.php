@@ -106,12 +106,14 @@
                                                 <a href="vehicle_edit.php?vehicle_id=<?php echo $row['vehicle_id']; ?>"
                                                     class="btn btn-darkblue">
                                                     <i class="fa-solid fa-pen-to-square"></i> </a>
-                                                <?php if ($row['vehicle_status']=="0"): ?>
-                                                <button type="button"
-                                                    onclick="deleteData(<?php echo $row['vehicle_id']; ?>,'vehicle', 'vehicle_id')"
-                                                    class="btn btn-darkblue"> <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <?php endif ?>
+                                                <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 'admin'): ?>   
+                                                    <?php if ($row['vehicle_status']=="0"): ?>
+                                                    <button type="button"
+                                                        onclick="deleteData(<?php echo $row['vehicle_id']; ?>,'vehicle', 'vehicle_id')"
+                                                        class="btn btn-darkblue"> <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
 
                                             </td>
                                             <?php } ?>
