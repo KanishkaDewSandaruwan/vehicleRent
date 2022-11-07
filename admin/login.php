@@ -3,7 +3,7 @@
 
 <?php include 'pages/head.php'; ?>
 
-<body>
+<body style="background-color: #cb8670;">
     <main class="d-flex w-100">
         <div class="container d-flex flex-column">
             <div class="row vh-100">
@@ -11,7 +11,7 @@
                     <div class="d-table-cell align-middle">
 
                         <div class="text-center mt-4">
-                            <h1 class="h2">Welcome back, to Roshan's Vehicle Rent Service</h1>
+                            <h1 class="h2 text-white">Welcome back, to Roshan's Vehicle Rent Service</h1>
                             <p class="lead">
                                 Sign in to your account to continue
                             </p>

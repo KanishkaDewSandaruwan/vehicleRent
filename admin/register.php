@@ -4,7 +4,7 @@
 
 <?php include 'pages/head.php'; ?>
 
-<body>
+<body style="background-color: #cb8670;"> 
     <main class="d-flex w-100">
         <div class="container d-flex flex-column">
             <div class="row vh-100">
@@ -12,8 +12,8 @@
                     <div class="d-table-cell align-middle">
 
                         <div class="text-center mt-4">
-                            <h1 class="h2">Get started</h1>
-                            <p class="lead">
+                            <h1 class="h2 text-white">Get started</h1>
+                            <p class="lead text-white">
                                 Welcome to Roshan's Vehicle Rent Service
                             </p>
                         </div>
@@ -54,7 +54,7 @@
                                                 <option value="1" selected>Male</option>
                                                 <option value="0">Female</option>
                                             </select>
-                                            <label for="floatingText">Address</label>
+                                            <label for="floatingText">Gender</label>
                                         </div>
 
                                         <div class="form-floating mb-4">

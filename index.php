@@ -84,7 +84,7 @@
                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
                                 <h2 data-animation="fadeInUp" data-delay="500ms"><?php echo $res['header_title']; ?></h2>
                                 <p data-animation="fadeInUp" data-delay="700ms"><?php echo $res['header_desc']; ?>.</p>
-                                <a href="package.php" class="btn palatin-btn mt-50" data-animation="fadeInUp"
+                                <a href="packages.php" class="btn palatin-btn mt-50" data-animation="fadeInUp"
                                 data-delay="900ms">Show Packages</a>
                             </div>
                         </div>
