@@ -20,6 +20,14 @@ function getAllAvailablepackage()
     return mysqli_query($con, $viewcat);
 }
 
+function getAllAvailablepackageByCategory($cat_id)
+{
+    include 'connection.php';
+
+    $viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND package_status = 1 AND cat_id = '$cat_id' ORDER BY date_updated DESC ";
+    return mysqli_query($con, $viewcat);
+}
+
 function getAllvehicle()
 {
     include 'connection.php';
@@ -42,6 +50,14 @@ function getpackageByID($package_id)
 	include 'connection.php';
 
 	$viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND package_id = '$package_id' AND package_status = 1 ";
+	return mysqli_query($con, $viewcat);
+}
+
+function getpackageByCatID($cat_id)
+{
+	include 'connection.php';
+
+	$viewcat = "SELECT * FROM package WHERE is_deleted = 0 AND cat_id = '$cat_id' AND package_status = 1 ";
 	return mysqli_query($con, $viewcat);
 }
 
@@ -355,6 +371,7 @@ function getAllCategory()
     return mysqli_query($con, $q1);
 
 }
+
 
 function getAllCategoryByID($cat_id)
 {

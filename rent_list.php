@@ -132,7 +132,15 @@
 
                             
                             <td>
-                                <?php if ($row['rent_status'] != "3") { ?>
+                                <p> <?php if ($row['rent_status'] == 0) {
+                                     echo 'Pending';
+                                 } else if ($row['rent_status'] == 1) {
+                                     echo 'Accept';
+                                 } else if ($row['rent_status'] == 2) {
+                                     echo 'Canceled';
+                                 } ?>
+                                 </p>
+                                <?php if ($row['rent_status'] == "0" ) { ?>
                                 <select
                                     onchange='updateDataFromHome(this, "<?php echo $rent_id; ?>","rent_status", "vehicle_rent", "rent_id")'
                                     id="rent_status <?php echo $rent_id; ?>" class='form-control norad tx12'
@@ -140,20 +148,15 @@
                                     <option value="1">
                                         ... Please Select Cancel ...
                                     </option>
-                                    <option value="3">
+                                    <option value="2">
                                         Booking Canceled
                                     </option>
                                 </select>
-                                <?php } else { ?>
-                                <?php if ($row['rent_status'] == 0) {
-                                    echo 'Pending';
-                                } else if ($row['rent_status'] == 1) {
-                                    echo 'Accept';
-                                } ?>
                                 <?php } ?>
+
                             </td>
                             <td>
-                                <?php if ($row['rent_status'] != "3" && $row['extend'] == "0") { ?>
+                                <?php if ($row['rent_status'] == "1" && $row['extend'] == "0") { ?>
 
                                 <?php
                                 $getDetails = getExtendByID($rent_id);

@@ -81,7 +81,7 @@
     <section class="rooms-area section-padding-0-100">
         <div class="container mt-5 mb-5">
             <div class="row">
-                <div class="col-md-2"><a href="booking_list.php" class="btn btn-primary">My Orders List</a></div>
+                <div class="col-md-2"><a href="booking_list.php" class="btn btn-primary">My Packages List</a></div>
                 <div class="col-md-4"><a href="rent_list.php" class="btn btn-primary">My Car Rent List</a></div>
             </div>
             <div class="row">

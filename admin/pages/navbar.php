@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html">
+        <a class="sidebar-brand" href="index.php">
             <span class="align-middle">Roshan's Geuest House</span>
             <span class="align-middle">Vehicle Rent Service</span>
         </a>
@@ -47,7 +47,7 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="orders.php">
-                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">Orders</span>
+                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">Package Orders</span>
                 </a>
             </li>
             <li class="sidebar-item">

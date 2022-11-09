@@ -21,7 +21,7 @@ addContactMessage = (form) => {
                         }
                     });
                 } else { errorMessage("Please Enter Message"); }
-            } else { errorMessage("Please Enter Phone Number"); }
+            } else { errorMessage("Please Enter Subject"); }
         } else { errorMessage("Please Enter Email Address"); }
     } else { errorMessage("Please Enter Your Name"); }
 

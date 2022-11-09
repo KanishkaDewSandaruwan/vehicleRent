@@ -56,7 +56,8 @@
                                             <?php echo $row2['changed_date']; ?>
                                         </p>
                                         <p>
-                                            Rs. <?php echo $row2['extended_total']; ?>.00
+                                            Rs.
+                                            <?php echo $row2['extended_total']; ?>.00
                                         </p>
                                         <p>
                                             <?php echo $row2['request_message']; ?>
@@ -66,22 +67,25 @@
                                     <div class="form-group mt-5 mb-3">
                                         <label for="inputName">Approvel</label>
                                         <select
-                                                    onchange="updateData(this, '<?php echo $extend_id; ?>', 'extend_status', 'extend', 'extend_id');"
-                                                    id="extend_status <?php echo $extend_id; ?>"
-                                                    class='form-control norad tx12' name="extend_status" type='text'>
-                                                    <option value="0"
-                                                        <?php if ($row2['extend_status'] == "1" ) echo "selected" ; ?>>
-                                                        Pending
-                                                    </option>
-                                                    <option value="1"
-                                                        <?php if ($row2['extend_status'] == "1" ) echo "selected" ; ?>>
-                                                        Active
-                                                    </option>
-                                                    <option value="2"
-                                                        <?php if ($row2['extend_status'] == "2" ) echo "selected" ; ?>>
-                                                        Not Approve
-                                                    </option>
-                                                </select>
+                                            onchange="updateData(this, '<?php echo $extend_id; ?>', 'extend_status', 'extend', 'extend_id');"
+                                            id="extend_status <?php echo $extend_id; ?>" class='form-control norad tx12'
+                                            name="extend_status" type='text'>
+                                            <option value="0" <?php if ($row2['extend_status']=="1")
+                                                echo "selected";
+                                                ?>>
+                                                Pending
+                                            </option>
+                                            <option value="1" <?php if ($row2['extend_status']=="1")
+                                                echo "selected";
+                                                ?>>
+                                                Active
+                                            </option>
+                                            <option value="2" <?php if ($row2['extend_status']=="2")
+                                                echo "selected";
+                                                ?>>
+                                                Not Approve
+                                            </option>
+                                        </select>
                                     </div>
 
 

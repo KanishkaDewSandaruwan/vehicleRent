@@ -89,12 +89,17 @@
 
             <div class="row justify-content-center">
             <?php
-            $getall = getAllAvailablepackage();
+              if(isset($_REQUEST['cat_id'])){
+                $getall = getpackageByCatID($_REQUEST['cat_id']);
+            }else{
+                $getall = getAllAvailablepackage();
+            }
 
             while ($row = mysqli_fetch_assoc($getall)) {
                 $package_id = $row['package_id'];
                 $img = $row['package_image'];
                 $img_src = "server/uploads/package/" . $img; ?>
+
                 <!-- Single Rooms Area -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-rooms-area wow fadeInUp" data-wow-delay="100ms">

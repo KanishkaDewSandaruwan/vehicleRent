@@ -124,6 +124,52 @@
     </section>
     <!-- ##### Pool Area End ##### -->
 
+      <!-- ##### Rooms Area Start ##### -->
+      <section class="rooms-area section-padding-100-0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6">
+                    <div class="section-heading text-center">
+                        <div class="line-"></div>
+                        <h2>Our Package with Vehicle Category </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+            <?php 
+                        $getall = getAllCategory();
+
+                        while($row=mysqli_fetch_assoc($getall)){ 
+                            $cat_id = $row['cat_id'];
+                            $img = $row['cat_image'];
+                            $img_src = "server/uploads/category/".$img;
+
+                        $getallCp2 = getpackageByCatID($cat_id);
+                        if ($row2 = mysqli_fetch_assoc($getallCp2)) {
+                            ?>
+                <!-- Single Rooms Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                   <a href="packages.php?cat_id=<?php echo $cat_id; ?>">
+                   <div class="single-rooms-area wow fadeInUp" data-wow-delay="100ms">
+                        <!-- Thumbnail -->
+                        <div class="bg-thumbnail bg-img" style="background-image: url('<?php echo $img_src; ?>');"></div>
+                        <div class="rooms-text">
+                            <div class="line"></div>
+                            <h4><?php echo $row['cat_name']; ?></h4>
+                           
+                        </div>
+
+                    </div>
+                   </a>
+                </div>
+                <?php } } ?>
+
+
+            </div>
+        </div>
+    </section>
+
      <!-- ##### Rooms Area Start ##### -->
      <section class="rooms-area section-padding-100-0">
         <div class="container">
@@ -171,9 +217,7 @@
     <!-- ##### Contact Area Start ##### -->
     <section class="contact-area d-flex flex-wrap align-items-center">
         <div class="home-map-area">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22236.40558254599!2d-118.25292394686001!3d34.057682914027104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2z4Kay4Ka4IOCmj-CmnuCnjeCmnOCnh-CmsuCnh-CmuCwg4KaV4KeN4Kav4Ka-4Kay4Ka_4Kar4KeL4Kaw4KeN4Kao4Ka_4Kav4Ka84Ka-LCDgpq7gpr7gprDgp43gppXgpr_gpqgg4Kav4KeB4KaV4KeN4Kak4Kaw4Ka-4Ka34KeN4Kaf4KeN4Kaw!5e0!3m2!1sbn!2sbd!4v1532328708137"
-                allowfullscreen></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.9263814348415!2d80.1009201!3d6.1405918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae177c197b15779%3A0x92a333e4a6c88a2!2sRoshan&#39;s%20Guest%20House!5e0!3m2!1sen!2slk!4v1668007130892!5m2!1sen!2slk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <!-- Contact Info -->
         <div class="contact-info">
