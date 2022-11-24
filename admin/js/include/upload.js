@@ -42,6 +42,28 @@ uploadImagePackageEdit = (ele) => {
     });
 }
 
+editGallery = (ele) => {
+    var formData = new FormData(ele);
+
+    $.ajax({
+        method: "POST",
+        url: API_PATH + "editGallery",
+
+
+        data: formData,
+        success: function ($data) {
+            console.log($data);
+            loading("Image Uploding...");
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        error: function (error) {
+            console.log(`Error ${error}`);
+        }
+    });
+}
+
 uploadImagevehicleEdit = (ele) => {
     var formData = new FormData(ele);
 

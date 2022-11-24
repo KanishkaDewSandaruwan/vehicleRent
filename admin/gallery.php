@@ -42,7 +42,24 @@
 
 
                                         <tr>
-                                            <td><img width="500px" src='<?php echo $img_src; ?>'></td>
+                                            <td>
+                                                <form class="w-20" enctype="multipart/form-data" method="POST">
+                                                    <div class="mb-3">
+                                                        <input class="form-control"
+                                                            value="<?php echo $row['gallery_id'] ?>" name="id"
+                                                            type="hidden" id="id">
+                                                        <input class="form-control" value="gallery_id" name="id_fild"
+                                                            type="hidden" id="id_fild">
+                                                        <input class="form-control" value="gallery" name="table"
+                                                            type="hidden" id="table">
+                                                        <input class="form-control" value="gallery_image" name="field"
+                                                            type="hidden" id="field">
+                                                        <input onchange="editGallery(this.form);" class="form-control"
+                                                            name="file" type="file" id="formFile">
+                                                    </div>
+                                                </form>
+                                                <img width="200px" src='<?php echo $img_src; ?>'>
+                                            </td>
                                             <td>
 
                                                 <button type="button"
